@@ -19,7 +19,11 @@ export default {
       this.$store.dispatch('getCurrentWeather', item.split(",")[0]);
       this.$router.push({ name: "Home" });
     }
-  }
+  }, 
+  beforeCreate() {
+    document.body.className = "list";
+    this.$store.commit('setAccentColor', "white");
+  },
 };
 </script>
 

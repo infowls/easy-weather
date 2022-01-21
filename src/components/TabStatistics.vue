@@ -96,6 +96,7 @@ export default {
 .tabcontent {
   padding: 12px 12px;
   border: 1px solid #ccc;
+  background-color: white;
   border-top: none;
   width: 100%;
 }

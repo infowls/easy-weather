@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    accentColor: "teal",
+    accentColor: "white",
     cityInput: "",
     city: "",
     cities: [],
@@ -147,6 +147,10 @@ export default createStore({
 
     setUnits(state) {
       state.unitIndex = Number(!Boolean(state.unitIndex));
+    },
+
+    setAccentColor(state, value) {
+      state.accentColor = value;
     },
 
     setCitiesApi(state, response) {

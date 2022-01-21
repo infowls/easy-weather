@@ -1,5 +1,5 @@
 <template>
-  <ul id="item">
+  <ul id="item" :style="{color:this.$store.state.accentColor}">
     <li>{{ this.title }}</li>
     <li style="float:right">
       <svg
@@ -41,7 +41,7 @@ ul {
 }
 
 ul:hover{
-    background-color: #dcdcdc;
+    background-color: #00000050;
 }
 
 li {

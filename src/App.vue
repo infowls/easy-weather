@@ -22,7 +22,9 @@
     </li>
 
     <li id="tab" style="float: right" @click="changeUnits">
-      <button class="unit">{{ this.unit }}</button>
+      <button class="unit" :style="{ color: this.$store.state.accentColor }">
+        {{ this.unit }}
+      </button>
     </li>
   </ul>
   <router-view v-if="this.$store.state.currentWeather" />
@@ -80,8 +82,28 @@ body {
   width: 100%;
 }
 
-body {
+body.home, body.list {
   font-family: "Poppins", sans-serif;
+  background: linear-gradient(-45deg, #221c72, #34adda, #4f3081);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+body.details {
+  background-color: white;
+  font-family: "Poppins", sans-serif;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 #nav {
@@ -99,7 +121,7 @@ body {
 }
 
 .unit {
-  background-color: inherit;
+  background-color: transparent;
   float: left;
   border: none;
   outline: none;
@@ -111,7 +133,6 @@ body {
 }
 
 .unit:hover {
-  background-color: #ddd;
+  background-color: rgba(0, 0, 0, 0.425);
 }
-
 </style>

@@ -1,7 +1,7 @@
 <template >
   <div v-if="this.$store.state.dailyWeather">
     <div id="title-bar">
-      <h1 id="text">
+      <h1 id="text" :style="{ color: this.$store.state.accentColor }">
         {{ this.$store.state.city }} ({{ this.currentDateTime }}) -
         {{ this.$store.state.dailyWeather.current.weather[0].main }}
       </h1>
@@ -9,19 +9,17 @@
         :icon="this.$store.state.dailyWeather.current.weather[0].icon"
         :width="'50'"
         :height="'50'"
-        :color="'black'"
+        :color="this.$store.state.accentColor"
       />
     </div>
 
     <div id="data">
-      <h2>Hourly</h2>
-      <hr />
+      <h2 :style="{ color: this.$store.state.accentColor }">Hourly</h2>
       <TabStatistics :labels="this.hourDataLabels" :data="this.hourlyData" />
     </div>
 
     <div id="data">
-      <h2>Daily</h2>
-      <hr />
+      <h2 :style="{ color: this.$store.state.accentColor }">Daily</h2>
       <TabStatistics :labels="this.dayLabels" :data="this.dailyData" />
     </div>
   </div>
@@ -43,8 +41,11 @@ export default {
     };
   },
   beforeCreate() {
-    if (this.$store.state.dailyWeather == null)
+    document.body.className = "details";
+    this.$store.commit('setAccentColor', "black");
+    if (this.$store.state.dailyWeather == null) {
       this.$router.push({ name: "Home" });
+    }
   },
   computed: {
     currentDateTime: {
@@ -82,10 +83,7 @@ export default {
   margin-right: 2%;
 }
 
-hr {
-  border-color: #dbdbdb;
-  border-style: solid;
-  margin-top: 1%;
+h2 {
   margin-bottom: 1%;
 }
 

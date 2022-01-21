@@ -10,8 +10,8 @@
         <div id="image">
           <Icon
             :icon="this.$store.state.currentWeather.weather[0].icon"
-            :width="'150'"
-            :height="'150'"
+            :width="'200'"
+            :height="'200'"
             :color="this.$store.state.accentColor"
           />
         </div>
@@ -30,8 +30,8 @@
           <svg
             v-if="this.isMoreVisile"
             xmlns="http://www.w3.org/2000/svg"
-            width="150"
-            height="150"
+            width="200"
+            height="200"
             :fill="this.$store.state.accentColor"
             class="bi bi-chevron-compact-right"
             viewBox="0 0 16 16"
@@ -70,6 +70,10 @@ export default {
         .catch((err) => console.log(err));
     },
   },
+  beforeCreate() {
+    document.body.className = "home";
+    this.$store.commit('setAccentColor', "white");
+  },
 };
 </script>
 
@@ -77,6 +81,7 @@ export default {
 #text {
   text-align: center;
   margin-top: 30%;
+  font-size: 20px;
 }
 
 #card {
@@ -84,7 +89,8 @@ export default {
 }
 
 #more {
-  margin-top: 1%;
+  display: flex;
+  align-items: center;
 }
 
 .slide-fade-enter-active {
@@ -103,13 +109,10 @@ export default {
   display: flex;
   justify-content: center;
   margin-top: 5%;
-
 }
 
 .home-info {
   display: flex;
   justify-content: center;
 }
-
-
 </style>
