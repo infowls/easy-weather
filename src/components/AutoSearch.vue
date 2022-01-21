@@ -3,7 +3,7 @@
     <Search/>
     <div class="dropdown">
       <ul>
-        <div :key="item.id" v-for="item in this.$store.state.cities">
+        <div :key="index" v-for="(item, index) in this.$store.state.cities" @click="onSelected(item)">
           <li>{{ item }}</li>
         </div>
       </ul>
@@ -18,6 +18,17 @@ export default {
   name: "AutoSearch",
   components: {
     Search
+  },
+  methods: {
+    onSelected(item){      
+      this.$store.commit('emptyCities');
+      this.$store.commit('setInput', "");
+      this.$store.commit('setGeolocation', item);
+      
+      this.$store.dispatch('getCurrentWeather', item.split(",")[0]);
+
+      this.$router.push({ name: "Home" });
+    }
   }
 };
 </script>

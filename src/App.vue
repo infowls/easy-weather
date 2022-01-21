@@ -21,46 +21,11 @@
       <AutoSearch />
     </li>
 
-    <li
-      id="tab"
-      style="float: right"
-      v-if="!this.$store.state.logged"
-      @click="onLoginClick"
-    >
-      <router-link to="/login">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="30"
-          height="30"
-          :fill="this.$store.state.accentColor"
-          class="bi bi-person"
-          viewBox="0 0 16 16"
-        >
-          <path
-            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"
-          />
-        </svg>
-      </router-link>
-    </li>
-
-    <li id="tab" style="float: right" v-if="this.$store.state.logged">
-      <router-link to="/">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="30"
-          height="30"
-          :fill="this.$store.state.accentColor"
-          class="bi bi-person"
-          viewBox="0 0 16 16"
-        >
-          <path
-            d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
-          />
-        </svg>
-      </router-link>
+    <li id="tab" style="float: right" @click="changeUnits">
+      <button class="unit">{{ this.unit }}</button>
     </li>
   </ul>
-  <router-view />
+  <router-view v-if="this.$store.state.currentWeather" />
 </template>
 
 <script>
@@ -82,6 +47,21 @@ export default {
     onHomeClick() {
       this.isSearchVisible = true;
     },
+    changeUnits() {
+      this.$store.commit("setUnits");
+      this.$store.dispatch("getCurrentWeather");
+      this.$store.dispatch("getDailyWeather");
+    },
+  },
+  beforeCreate() {
+    this.$store.dispatch("getGeolocation");
+  },
+  computed: {
+    unit: {
+      get() {
+        return this.$store.state.units[this.$store.state.unitIndex][0];
+      },
+    },
   },
 };
 </script>
@@ -93,6 +73,13 @@ export default {
   margin: 0;
   padding: 0;
 }
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   font-family: "Poppins", sans-serif;
 }
@@ -110,4 +97,21 @@ body {
   text-decoration: none;
   float: left;
 }
+
+.unit {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+  text-transform: capitalize;
+}
+
+.unit:hover {
+  background-color: #ddd;
+}
+
 </style>

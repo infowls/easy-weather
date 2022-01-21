@@ -1,13 +1,16 @@
 <template>
   <div class="group">
     <input
-      v-model="this.cityInput"
+      v-model="this.textInput"
       type="text"
       style="text-transform: capitalize"
       :placeholder="hintText"
-      :style="{ borderColor: this.$store.state.accentColor, color: this.$store.state.accentColor }"
+      :style="{
+        borderColor: this.$store.state.accentColor,
+        color: this.$store.state.accentColor,
+      }"
     />
-    <button>
+    <button @click="searchCities">
       <svg
         :fill="this.$store.state.accentColor"
         xmlns="http://www.w3.org/2000/svg"
@@ -28,20 +31,30 @@ export default {
   name: "Search",
   data() {
     return {
-      hintText: "Search ..."
+      hintText: "Search ...",
     };
   },
   computed: {
-    cityInput: {
+    textInput: {
       get() {
         return this.$store.state.cityInput;
       },
-      set(newValue) {
-        if(newValue)
-          this.$store.dispatch('getCitiesApi', newValue);
-        else
-          this.$store.commit('getCitiesApi', []);
+      set(value) {
+        this.$store.commit("setInput", value);
+        if (value)
+          this.$store.dispatch("getCitiesApi", { value: value, limit: 5 });
       },
+    },
+  },
+  methods: {
+    searchCities() {
+      this.$store.dispatch("getCitiesApi", {
+        value: this.$store.state.cityInput,
+        limit: 30,
+      });
+      this.$store.commit("emptyCities");
+      this.$store.commit("setInput", "");
+      this.$router.push({ name: "List" });
     },
   },
 };
@@ -73,6 +86,7 @@ button {
   position: absolute;
   background: transparent;
   border-width: 0px;
+  cursor: pointer;
 }
 
 button:active {
