@@ -1,35 +1,38 @@
 <template>
   <div class="tab">
-    <div :key="index" v-for="(item, index) in this.labels" class="tablinks">
-      <button @click="changeTab(index)">{{ item }}</button>
+    <div
+      class="tablinks"
+      :key="index"
+      v-for="(item, index) in this.labels"
+      @click="changeTab(index)"
+    >
+      <p>{{ item }}</p>
     </div>
   </div>
 
-  <div class="tabcontent">
-    
-    <div v-if="this.data.titles">
-      <h3>
-        Day {{ this.labels[this.tabIndex] }} -
-        {{ this.data.titles[this.tabIndex][0].main }}
-      </h3>
-      <h4 style="text-transform: capitalize">
-         {{ this.data.titles[this.tabIndex][0].description }}
-      </h4>
+  <div class="tab-content">
+    <div
+      v-if="this.data.chart"
+      :class="{ 'column-chart': this.data.table, column: !this.data.table }"
+    >
+      <div v-if="this.data.titles">
+        <h3>
+          Day {{ this.labels[this.tabIndex] }} -
+          {{ this.data.titles[this.tabIndex][0].main }}
+        </h3>
+        <h4 style="text-transform: capitalize">
+          {{ this.data.titles[this.tabIndex][0].description }}
+        </h4>
+      </div>
+      <line-chart :data="this.data.chart[this.tabIndex]"></line-chart>
     </div>
 
-    <div :class="{ display: this.data.table }">
-
-      <div v-if="this.data.chart" :class="{ shared: this.data.table }">
-        <line-chart :data="this.data.chart[this.tabIndex]"></line-chart>
-      </div>
-
-      <div v-if="this.data.table" class="shared">
-        <div class="align">
-          <h3 style="margin-bottom: 3%">Additional Information</h3>
-          <Table :data="this.data.table[this.tabIndex]" />
-        </div>
-      </div>
-
+    <div
+      v-if="this.data.table"
+      :class="{ 'column-table': this.data.table, column: !this.data.table }"
+    >
+      <h3 style="margin-bottom: 3%">Additional Information</h3>
+      <Table :data="this.data.table[this.tabIndex]" />
     </div>
   </div>
 </template>
@@ -40,7 +43,7 @@ import Table from "../components/Table.vue";
 export default {
   name: "TabStatistics",
   components: {
-    Table
+    Table,
   },
   props: {
     labels: {
@@ -66,70 +69,84 @@ export default {
 </script>
 
 <style scoped>
-
-
 .tab {
   overflow: hidden;
+  position: relative;
+  flex-flow: row wrap;
+  justify-content: space-between;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
-}
-
-.tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  font-size: 17px;
-}
-
-.tab button:hover {
-  background-color: #ddd;
-}
-
-.tab button.active {
-  background-color: #ccc;
-}
-
-.tabcontent {
-  padding: 12px 12px;
-  border: 1px solid #ccc;
-  background-color: white;
-  border-top: none;
-  width: 100%;
-}
-
-.display > .shared {
-  width: 50%;
-  vertical-align: top;
-  margin: 1%;
-  padding: 20px;
-}
-
-.display {
   display: flex;
 }
 
-.align {
-  margin-left: 25%;
+.tablinks {
+  cursor: pointer;
+  padding: 14px 14px;
+  flex: 1;
+  transition: 0.3s;
 }
 
-@media only screen and (max-width: 600px) {
-  .display {
-    display: inline-block;
+.tablinks:hover {
+  background-color: #ddd;
+}
+
+.tablinks:hover {
+  background-color: #ccc;
+}
+
+p {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 17px;
+  text-align: center;
+}
+
+.tab-content {
+  padding: 1% 3%;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-top: none;
+  display: flex;
+  justify-content: center;
+}
+
+.column-container {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+  justify-content: center;
+}
+
+.column-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 5;
+  margin-right: 5%;
+}
+
+.column-table {
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+  margin: auto;
+}
+
+@media (max-width: 600px) {
+  .tab-content {
+    flex-direction: column;
   }
 
-  .tabcontent > .shared {
-    width: 100%;
-    vertical-align: top;
-    margin: 1%;
-    padding: 20px;
+  .tablinks {
+    flex-basis: auto;
   }
 
-  .align {
-    margin-left: 0%;
+  .column-chart,
+  .column-table {
+    margin: 20px 0px;
   }
 }
 </style>

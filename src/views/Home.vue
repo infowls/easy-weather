@@ -1,7 +1,7 @@
 <template>
-  <div class="home-info">
+  <div class="content-container">
     <div
-      id="content"
+      class="content"
       @mouseover="this.isMoreVisile = true"
       @mouseleave="this.isMoreVisile = false"
       @click="redirect"
@@ -72,12 +72,22 @@ export default {
   },
   beforeCreate() {
     document.body.className = "home";
-    this.$store.commit('setAccentColor', "white");
+    this.$store.commit("setAccentColor", "white");
   },
 };
 </script>
 
 <style scoped>
+.content {
+  display: flex;
+  margin: auto;
+}
+
+.content-container {
+  display: flex;
+  height: 100%;
+}
+
 #text {
   text-align: center;
   margin-top: 30%;
@@ -85,7 +95,7 @@ export default {
 }
 
 #card {
-  display: inline-block;
+  display: block;
 }
 
 #more {
@@ -103,16 +113,5 @@ export default {
 .slide-fade-leave-to {
   transform: translateX(10px);
   opacity: 0;
-}
-
-#content {
-  display: flex;
-  justify-content: center;
-  margin-top: 5%;
-}
-
-.home-info {
-  display: flex;
-  justify-content: center;
 }
 </style>

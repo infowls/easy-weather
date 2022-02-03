@@ -1,5 +1,5 @@
 <template>
-  <div class="auto-search" @mouseleave="closeComplete">
+  <div class="auto-search">
     <div class="group">
       <input
         v-model="this.textInput"
@@ -25,8 +25,8 @@
         </svg>
       </button>
     </div>
-    <div class="dropdown">
-      <ul>
+    <div class="dropdown" v-if=" this.$store.state.cities.length > 0">
+      <ul @mouseleave="closeComplete">
         <div
           :key="index"
           v-for="(item, index) in this.$store.state.cities"
@@ -86,10 +86,22 @@ export default {
 </script>
 
 <style scoped>
+
+.auto-search{
+   position: relative;
+}
+
 .group {
   display: inline-block;
   position: relative;
   padding-left: 5px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 35px;
+  left: 0px;
+
 }
 
 input {

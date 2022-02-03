@@ -5,7 +5,7 @@ export default createStore({
   state: {
     accentColor: "white",
     cityInput: "",
-    city: "",
+    city: (typeof localStorage.getItem("city") == undefined) ? null : localStorage.getItem("city"),
     cities: [],
     citiesLong: [],
 
@@ -14,9 +14,8 @@ export default createStore({
       ['metric', '°C', '%', 'mbar', 'm/s', 'm/s'],
       ['imperial', '°F', '%', 'mbar', 'mi/h', 'mi/h']
     ],
-    currentWeather: null,
-    dailyWeather: null
-
+    currentWeather: (typeof localStorage.getItem("currentWeather") == undefined) ? null : JSON.parse(localStorage.getItem("currentWeather")),
+    dailyWeather: (typeof localStorage.getItem("dailyWeather") == undefined) ? null : JSON.parse(localStorage.getItem("dailyWeather"))
   },
   getters: {
     getConvertedDateTime: state => UNIX_timestamp => {
@@ -108,7 +107,7 @@ export default createStore({
         var dayInfo = [
           ['Max Temperature', state.dailyWeather.daily[i].temp.max + ' ' + state.units[state.unitIndex][1]],
           ['Min Temperature', state.dailyWeather.daily[i].temp.min + ' ' + state.units[state.unitIndex][1]],
-          ['Humidity', state.dailyWeather.daily[i].humidity+ ' ' + state.units[state.unitIndex][2]],
+          ['Humidity', state.dailyWeather.daily[i].humidity + ' ' + state.units[state.unitIndex][2]],
           ['Pressure', state.dailyWeather.daily[i].pressure + ' ' + state.units[state.unitIndex][3]],
           ['Wind Speed', state.dailyWeather.daily[i].wind_speed + ' ' + state.units[state.unitIndex][4]]
         ];
@@ -171,14 +170,17 @@ export default createStore({
 
     setGeolocation(state, response) {
       state.city = response;
+      localStorage.setItem("city", response);
     },
 
     setCurrentWeather(state, response) {
       state.currentWeather = response;
+      localStorage.setItem("currentWeather", JSON.stringify(response));
     },
 
     setDailyWeather(state, response) {
       state.dailyWeather = response;
+      localStorage.setItem("dailyWeather", JSON.stringify(response));
     }
   },
   actions: {
