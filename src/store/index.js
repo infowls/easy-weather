@@ -3,12 +3,12 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
+    serviceApi: "https://project-services-api.herokuapp.com",
     accentColor: "white",
     cityInput: "",
     city: (typeof localStorage.getItem("city") == undefined) ? null : localStorage.getItem("city"),
     cities: [],
     citiesLong: [],
-
     unitIndex: 0,
     units: [
       ['metric', '°C', '%', 'mbar', 'm/s', 'm/s'],
@@ -203,7 +203,7 @@ export default createStore({
     },
 
     getCurrentWeather({ commit, state }) {
-      var request = 'http://localhost:3000/forecast/now/' + state.city + "/" + state.units[state.unitIndex][0];
+      var request = state.serviceApi + '/now/' + state.city + "/" + state.units[state.unitIndex][0];
       axios.get(request).then(response => {
         commit('setCurrentWeather', response.data);
       }).catch((err) => console.log(err))
@@ -212,7 +212,7 @@ export default createStore({
     getDailyWeather({ commit, state }) {
       return new Promise((resolve, reject) => {
 
-        var request = 'http://localhost:3000/forecast/daily/' + state.city.split(",")[0] + "/" + state.units[state.unitIndex][0];
+        var request =  state.serviceApi + '/daily/' + state.city.split(",")[0] + "/" + state.units[state.unitIndex][0];
         axios.get(request).then(response => {
           commit('setDailyWeather', response.data);
           resolve(response.data);
