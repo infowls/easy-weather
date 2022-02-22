@@ -203,7 +203,7 @@ export default createStore({
     },
 
     getCurrentWeather({ commit, state }) {
-      var request = state.serviceApi + '/now/' + state.city + "/" + state.units[state.unitIndex][0];
+      var request = state.serviceApi + '/forecast/now/' + state.city.split(",")[0] + "/" + state.units[state.unitIndex][0];
       axios.get(request).then(response => {
         commit('setCurrentWeather', response.data);
       }).catch((err) => console.log(err))
@@ -212,7 +212,7 @@ export default createStore({
     getDailyWeather({ commit, state }) {
       return new Promise((resolve, reject) => {
 
-        var request =  state.serviceApi + '/daily/' + state.city.split(",")[0] + "/" + state.units[state.unitIndex][0];
+        var request =  state.serviceApi + '/forecast/daily/' + state.city.split(",")[0] + "/" + state.units[state.unitIndex][0];
         axios.get(request).then(response => {
           commit('setDailyWeather', response.data);
           resolve(response.data);
