@@ -1,5 +1,7 @@
 module.exports = {
-    devServer: {
-        proxy: 'https://project-services-api.herokuapp.com/'
+    configureWebpack: {
+      devServer: {
+        headers: { "Access-Control-Allow-Origin": "*" }
+      }
     }
-}
+  };
