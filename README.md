@@ -1,19 +1,43 @@
-# easy-weather
+# Easy Weather
+> Simple weather application deployed on [Heroku](https://easy-weather-webapp.herokuapp.com/)
 
-## Project setup
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [Screenshots](#screenshots)
+* [Setup](#setup)
+* [Contact](#contact)
+
+## General info
+Front-end application made in Vue.
+
+## Technologies
+* Vue
+* HTML, CSS
+
+## Screenshots
+### Landing page
+<img src="/screenshots/1.png" height="500px" alt="Landing Page">
+
+### Details page
+<img src="/screenshots/2.png" height="500px" alt="Details Page">
+
+## Setup
+Download the code and install it with 
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
+and run this code for development
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
+or this code for production
 ```
 npm run build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Status
+Project is: _finished_
+
+## Contact
+Created by [@JanaJankovic](https://github.com/JanaJankovic) - feel free to contact me!
