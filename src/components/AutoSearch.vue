@@ -25,7 +25,7 @@
         </svg>
       </button>
     </div>
-    <div class="dropdown" v-if=" this.$store.state.cities.length > 0">
+    <div class="dropdown" v-if="this.$store.state.cities.length > 0">
       <ul @mouseleave="closeComplete">
         <div
           :key="index"
@@ -78,17 +78,16 @@ export default {
       this.$store.commit("setInput", "");
       this.$router.push({ name: "List" });
     },
-    closeComplete(){
+    closeComplete() {
       this.$store.commit("emptyCities");
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
-
-.auto-search{
-   position: relative;
+.auto-search {
+  position: relative;
 }
 
 .group {
@@ -101,7 +100,6 @@ export default {
   position: absolute;
   top: 35px;
   left: 0px;
-
 }
 
 input {
