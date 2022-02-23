@@ -20,10 +20,10 @@ Front-end application made in Vue.
 <img src="/screenshots/1.png" height="400px" alt="Landing Page">
 
 ### Hourly Weather
-<img src="/screenshots/2.png" height="400px" alt="Hourly Weather">
+<img src="/screenshots/2.png" height="300px" alt="Hourly Weather">
 
 ### Daily Weather
-<img src="/screenshots/3.png" height="400px" alt="Daily Weather">
+<img src="/screenshots/3.png" height="300px" alt="Daily Weather">
 
 ## Setup
 Download the code and install it with 
