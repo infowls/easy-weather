@@ -17,10 +17,13 @@ Front-end application made in Vue.
 
 ## Screenshots
 ### Landing page
-<img src="/screenshots/1.png" height="500px" alt="Landing Page">
+<img src="/screenshots/1.png" height="400px" alt="Landing Page">
 
-### Details page
-<img src="/screenshots/2.png" height="500px" alt="Details Page">
+### Hourly Weather
+<img src="/screenshots/2.png" height="400px" alt="Hourly Weather">
+
+### Daily Weather
+<img src="/screenshots/3.png" height="400px" alt="Daily Weather">
 
 ## Setup
 Download the code and install it with 
